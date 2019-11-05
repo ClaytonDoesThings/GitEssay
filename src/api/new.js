@@ -14,7 +14,25 @@ module.exports = (req, res) => {
                         config.simpleGit.cwd(path);
                         config.simpleGit.init(false, (err) => {
                             if (!err) {
-                                fs.writeFile(path + '/data.json', JSON.stringify({settings: {}, modules: {}, content: ""}), (err) => {
+                                fs.writeFile(path + '/data.json',
+                                    JSON.stringify({
+                                        meta: {
+                                            format: 1
+                                        },
+                                        settings: {},
+                                        modules: {
+                                            title: {
+                                                content: ["New Essay"]
+                                            }
+                                        },
+                                        content: [
+                                            {
+                                                type: "module-ref",
+                                                module: "title"
+                                            }
+                                        ]
+                                    }, null, 1),
+                                (err) => {
                                     if (!err) {
                                         config.simpleGit.cwd(path);
                                         config.simpleGit.add("data.json", (err) => {

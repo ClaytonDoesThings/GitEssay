@@ -1,2 +1,2 @@
 # GitEssay
-Create and write essays collaboratively with a GIT backend.
+Create and write essays collaboratively with a Git backend.

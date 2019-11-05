@@ -1,4 +1,4 @@
-modules = require('../modules');
+modules = require('../../modules');
 
 module.exports = (req, res) => {
     res.send(modules.htmlPage(
@@ -12,7 +12,7 @@ module.exports = (req, res) => {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     currentUser.getIdToken(true).then((idToken) => {
-                        let req = window.location.origin + "/api/repo/${req.params.user}/${req.params.name}?token=" + idToken;
+                        let req = window.location.origin + "/api/repo/${req.params.user}/${req.params.name}/meta?token=" + idToken;
                         httpGetAsync(req, (res, err) => {
                             if (!err) {
                                 console.log(JSON.parse(res));

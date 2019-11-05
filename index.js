@@ -9,11 +9,14 @@ const config = require('./src/config');
 
 app.get('/w/new', w.new);
 
-app.get('/w/repo/:user/:name', w.repoUserName);
+app.get('/w/repo/:user/:name', w.repoUserName.view);
+app.get('/w/repo/:user/:name/view', w.repoUserName.view);
+app.get('/w/repo/:user/:name/edit', w.repoUserName.edit);
 
 app.get('/api/new', api.new);
 
-app.get('/api/repo/:user/:name', api.repoUserName);
+app.get('/api/repo/:user/:name/meta', api.repoUserName.meta);
+app.get('/api/repo/:user/:name/data', api.repoUserName.data);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
