@@ -50,6 +50,14 @@ module.exports = (req, res) => {
                 <div>
                     Essay Name: <input type="text" value="" id="essayName"/>
                     <input type="button" value="New Essay" onClick="newEssay()"/><br/>
+                    <script>
+                        document.getElementById("essayName").addEventListener("keyup", function (event) {
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+                                newEssay();
+                            }
+                        });
+                    </script>
                     <p id="errorBox" style="color: red"></p>
                 </div>
             </div>
