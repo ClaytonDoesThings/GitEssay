@@ -6,6 +6,8 @@ module.exports = (req, res) => {
         modules.firebaseAuth +
         modules.httpGetAsync +
         `<script>
+            var meta = {};
+
             var loadState = "loading";
             var errorMessage = "";
 
@@ -15,7 +17,12 @@ module.exports = (req, res) => {
                         let req = window.location.origin + "/api/repo/${req.params.user}/${req.params.name}/meta?token=" + idToken;
                         httpGetAsync(req, (res, err) => {
                             if (!err) {
-                                console.log(JSON.parse(res));
+                                loadState = "authorized";
+                                meta = JSON.parse(res);
+                                console.log(meta);
+
+                                document.getElementById("title").innerText = meta.title;
+                                document.getElementById("loaded").style.display = "inline";
                             } else {
                                 console.error(res);
                             }
@@ -26,7 +33,17 @@ module.exports = (req, res) => {
                     errorMessage = "No authentication";
                 }
             });
+            function download() {
+                if (loadState === "authorized") {
+                    firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+                        window.location.href = (window.location.origin + "/api/repo/${req.params.user}/${req.params.name}/data.json?token=" + idToken);
+                    });
+                }
+            }
         </script>`,
-        ``
+        `<div id="loaded" style="display: none;">
+            <h1 id="title">No Title</h1>
+            <a href="/w/repo/${req.params.user}/${req.params.name}/edit">Edit</a> <a href="javascript:download()">Download</a>
+        </div>`
     ));
 };
