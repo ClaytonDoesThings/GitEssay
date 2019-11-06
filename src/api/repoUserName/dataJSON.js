@@ -1,11 +1,11 @@
 const fs = require('fs');
-var path = require('path');
+const path = require('path');
 
 module.exports = (req, res) => {
     authenticate(req.query.token, [req.params.user]).then(() => {
-        let _path = ("./git/" + req.params.user + "/" + req.params.name);
+        let _path = path.join(__dirname, "../../../git/" + req.params.user + "/" + req.params.name, 'data.json');
         if (fs.existsSync(_path)) {
-            res.download(path.join(__dirname, "../../." + _path, 'data.json'));
+            res.download(_path);
         } else {
             res.status(500).send("Failed to get path");
         }

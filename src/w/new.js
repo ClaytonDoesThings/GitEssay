@@ -15,7 +15,6 @@ module.exports = (req, res) => {
                 if (user) {
                     signedOut.style.display = "none";
                     signedIn.style.display = "block";
-                    signedInUser.innerText = "Signed in as: " + user.displayName;
                 } else {
                     signedOut.style.display = "block";
                     signedIn.style.display = "none";
@@ -46,8 +45,6 @@ module.exports = (req, res) => {
                 <input type="button" value="Sign In" onClick="signIn()"/>
             </div>
             <div id="signedIn" style="display: none">
-                <input type="button" value="Sign Out" onClick="firebase.auth().signOut()"/>
-                <span id="signedInUser">Signed in as: ???</span>
                 <div>
                     Essay Name: <input type="text" value="" id="essayName"/>
                     <input type="button" value="New Essay" onClick="newEssay()"/><br/>

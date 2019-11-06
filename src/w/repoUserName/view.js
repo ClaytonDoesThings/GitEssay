@@ -42,6 +42,7 @@ module.exports = (req, res) => {
                 }
             }
         </script>`,
+        modules.topNav +
         `<div id="loaded" style="display: none;">
             <h1 id="title">No Title</h1>
             <a href="/w/repo/${req.params.user}/${req.params.name}/edit">Edit</a> <a href="javascript:download()">Download</a>
