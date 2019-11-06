@@ -76,4 +76,4 @@ module.exports = (req, res) => {
     } else {
         res.status(400).send("Missing token or name");
     }
-}
+};

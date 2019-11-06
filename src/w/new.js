@@ -5,7 +5,7 @@ module.exports = (req, res) => {
         modules.firebase +
         modules.firebaseAuth +
         modules.httpGetAsync +
-        modules.topNav +
+        modules.styles +
         `<script>
             firebase.auth().onAuthStateChanged((user) => {
                 let signedOut = document.getElementById("signedOut");
@@ -40,6 +40,7 @@ module.exports = (req, res) => {
                 }
             }
         </script>`,
+        modules.topNav +
         `
             <div id="signedOut">
                 <input type="button" value="Sign In" onClick="signIn()"/>
@@ -63,4 +64,4 @@ module.exports = (req, res) => {
             </div>
         `
     ));
-}
+};

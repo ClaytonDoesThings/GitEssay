@@ -18,4 +18,4 @@ module.exports = `<script>
             console.error(err.code, err.message);
         });
     }
-</script>`
+</script>`;

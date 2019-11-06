@@ -5,6 +5,7 @@ module.exports = (req, res) => {
         modules.firebase +
         modules.firebaseAuth +
         modules.httpGetAsync +
+        modules.styles +
         `<script>
             var loadState = "loading";
             var errorMessage = "";

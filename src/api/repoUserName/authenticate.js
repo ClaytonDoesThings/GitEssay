@@ -14,4 +14,4 @@ module.exports = function authenticate (token, users) {
             reject("Authentication token is required.");
         }
     });
-}
+};
