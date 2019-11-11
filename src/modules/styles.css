@@ -1,3 +1,7 @@
+.text-justify-center {
+    text-align: center;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -24,11 +28,11 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .modal-close-button:hover,
-  .modal-close-button:focus {
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+}

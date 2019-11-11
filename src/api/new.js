@@ -22,13 +22,28 @@ module.exports = (req, res) => {
                                         settings: {},
                                         modules: {
                                             title: {
-                                                content: ["New Essay"]
+                                                title: "tile",
+                                                content: [
+                                                    {
+                                                        type: "text",
+                                                        settings: {
+                                                            justify: "center",
+                                                            breakLine: true
+                                                        },
+                                                        content: "New Essay Title"
+                                                    }
+                                                ]
                                             }
                                         },
                                         content: [
                                             {
                                                 type: "module-ref",
                                                 module: "title"
+                                            },
+                                            {
+                                                type: "text",
+                                                settings: {},
+                                                content: "&emsp;Hello!"
                                             }
                                         ]
                                     }, null, 1),
