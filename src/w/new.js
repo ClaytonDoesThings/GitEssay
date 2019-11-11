@@ -41,7 +41,7 @@ module.exports = (req, res) => {
         </script>`,
         modules.topNav +
         `
-            <div id="signedOut">
+            <div id="signedOut" style="display: none">
                 <input type="button" value="Sign In" onClick="signIn()"/>
             </div>
             <div id="signedIn" style="display: none">

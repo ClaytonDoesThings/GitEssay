@@ -30,6 +30,7 @@ app.get('/api/new', api.new);
 app.get('/api/repo/:user/:name/meta', api.repoUserName.meta);
 app.get('/api/repo/:user/:name/data', api.repoUserName.data);
 app.get('/api/repo/:user/:name/data.json', api.repoUserName.dataJSON);
+app.get('/api/repo/:user/:name/delete', api.repoUserName.delete);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
