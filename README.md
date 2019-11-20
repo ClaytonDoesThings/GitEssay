@@ -1,2 +1,2 @@
-# GitEssay
-Create and write essays collaboratively with a Git backend.
+# OpenSchool
+An open sourced toolbox for school.
