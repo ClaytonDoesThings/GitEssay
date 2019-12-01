@@ -1,4 +1,4 @@
-modules = require('../modules');
+const modules = require('../modules');
 
 module.exports = (req, res) => {
     res.send(modules.htmlPage(

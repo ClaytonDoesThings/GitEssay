@@ -47,6 +47,8 @@ app.get('/api/essays/essay/:user/:name/data', api.essays.essay.data);
 app.get('/api/essays/essay/:user/:name/data.json', api.essays.essay.dataJSON);
 app.get('/api/essays/essay/:user/:name/delete', api.essays.essay.delete);
 
+app.use(w["404"]);
+
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
 });
