@@ -1,6 +1,6 @@
 module.exports = {
-    new: require('./new.js'),
-    repoUserName: require('./repoUserName'),
-    userMeta: require('./userMeta.js'),
-    userRepos: require('./userRepos.js')
+    session: require('./session.js'),
+    auth: require('./auth'),
+    essays: require('./essays'),
+    user: require('./user')
 };

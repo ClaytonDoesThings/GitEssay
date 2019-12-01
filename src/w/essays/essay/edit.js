@@ -1,10 +1,9 @@
-modules = require('../../modules');
+modules = require('../../../modules');
 
 module.exports = (req, res) => {
     res.send(modules.htmlPage(
-        modules.firebase +
-        modules.firebaseAuth +
         modules.httpGetAsync +
+        modules.session +
         modules.styles +
         `<script>
             var essayData;
@@ -38,33 +37,27 @@ module.exports = (req, res) => {
             var loadState = "loading";
             var errorMessage = "";
 
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    currentUser.getIdToken(true).then((idToken) => {
-                        let req = window.location.origin + "/api/repo/${req.params.user}/${req.params.name}/data?token=" + idToken;
-                        httpGetAsync(req, (res, err) => {
-                            if (!err) {
-                                essayData = JSON.parse(res);
-                                console.log(essayData);
-                                document.getElementById("editor-main").innerHTML = renderEssayContent(essayData.content, essayData.modules);
-                                document.getElementById("authorized").style.display = "block";
-                                document.getElementById("unauthorized").style.display = "none";
-                            } else {
-                                console.error(res);
-                                document.getElementById("authorized").style.display = "none";
-                                document.getElementById("unauthorized").style.display = "block";
-                            }
-                        });
+            session.onAuthChanged((state, userMeta) => {
+                if (state) {
+                    let req = window.location.origin + "/api/essays/essay/${req.params.user}/${encodeURIComponent(req.params.name)}/data";
+                    httpGetAsync(req, (res, err) => {
+                        if (!err) {
+                            essayData = JSON.parse(res);
+                            console.log(essayData);
+                            document.getElementById("editor-main").innerHTML = renderEssayContent(essayData.content, essayData.modules);
+                            document.getElementById("authorized").style.display = "block";
+                            document.getElementById("unauthorized").style.display = "none";
+                        } else {
+                            console.error(res);
+                            document.getElementById("authorized").style.display = "none";
+                            document.getElementById("unauthorized").style.display = "block";
+                        }
                     });
                 } else {
                     loadState = "unauthorized";
                     errorMessage = "No authentication";
                 }
             });
-
-            function onLoad() {
-
-            }
         </script>`,
         modules.topNav +
         `<div id="authorized" style="display: none">

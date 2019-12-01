@@ -1,13 +1,12 @@
 const fs = require('fs');
-config = require('../config');
 
 module.exports = (req, res) => {
-    var token = req.query.token;
-    var name = req.query.name;
+    var name = encodeURIComponent(req.query.name);
 
-    if (token && name) {
-        config.firebaseAdmin.auth().verifyIdToken(token).then((user)=> {
-            let path = ("./git/" + user.uid + "/" + name);
+    if (name) {
+        if (req.session.auth) {
+            let user = req.session.userMeta;
+            let path = ("./db/openEssays/" + user.uid + "/" + name);
             if (!fs.existsSync(path)) {
                 fs.mkdir(path, {recursive: true}, (err) => {
                     if (!err) {
@@ -78,16 +77,15 @@ module.exports = (req, res) => {
                         });
                     } else {
                         console.error(err);
-                        res.status(500).send("Failed to make repository folder.");
+                        res.status(500).send("Failed to make essay folder.");
                     }
                 });
             } else {
-                res.status(400).send("Repo already exists");
+                res.status(400).send("Essay already exists");
             }
-        }).catch((err) => {
-            console.error(err);
-            res.status(400).send("Error while verifying user.");
-        })
+        } else {
+            res.status(400).send("Not signed in.");
+        }
     } else {
         res.status(400).send("Missing token or name");
     }

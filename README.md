@@ -1,2 +1,2 @@
 # SchoolThings
-An open sourced toolbox for school.
+Make school open-sourced.

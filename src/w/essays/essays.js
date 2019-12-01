@@ -1,18 +1,18 @@
-modules = require('../modules')
+const modules = require('../../modules');
+const githubAuthURL = require('../../config/githubAuth').githubAuthURL;
 
 module.exports = (req, res) => {
     res.send(modules.htmlPage(
-        modules.firebase +
-        modules.firebaseAuth +
         modules.httpGetAsync +
+        modules.session +
         modules.styles +
         `<script>
-            firebase.auth().onAuthStateChanged((user) => {
+            session.onAuthChanged((state, userMeta) => {
                 let signedOut = document.getElementById("signedOut");
                 let signedIn = document.getElementById("signedIn");
                 let signedInUser = document.getElementById("signedInUser");
     
-                if (user) {
+                if (state) {
                     signedOut.style.display = "none";
                     signedIn.style.display = "block";
                 } else {
@@ -23,26 +23,26 @@ module.exports = (req, res) => {
             
             function newEssay() {
                 var essayName = document.getElementById("essayName").value;
-                if (essayName.length > 0 && firebase.auth().currentUser) {
-                    currentUser.getIdToken(true).then((idToken) => {
-                        let req = window.location.origin + "/api/new?token=" + idToken + "&name=" + essayName;
-                        httpGetAsync(req, (res, err) => {
-                            if (!err) {
-                                document.getElementById("errorBox").innerText = "";
-                                window.location.href = ("/w/repo/" + currentUser.uid + "/" + essayName);
-                            } else {
-                                console.error(res);
-                                document.getElementById("errorBox").innerText = res;
-                            }
-                        });
+                if (essayName.length > 0 && session.data.auth) {
+                    let encodedName = encodeURIComponent(essayName);
+                    let req = window.location.origin + "/api/essays/new?name=" + encodedName;
+                    httpGetAsync(req, (res, err) => {
+                        if (!err) {
+                            document.getElementById("errorBox").innerText = "";
+                            window.location.href = ("/w/essays/essay/" + session.data.userMeta.uid + "/" + encodedName);
+                        } else {
+                            console.error(res);
+                            document.getElementById("errorBox").innerText = res;
+                        }
                     });
                 }
             }
         </script>`,
         modules.topNav +
         `
+            <h1>Essays</h1>
             <div id="signedOut" style="display: none">
-                <input type="button" value="Sign In" onClick="signIn()"/>
+                <input type="button" value="Sign In To Continue" onClick="session.signIn()"/>
             </div>
             <div id="signedIn" style="display: none">
                 <div>

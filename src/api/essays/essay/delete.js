@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-config = require('../../config');
-authenticate = require('./authenticate.js');
+const config = require('../../../config');
 
 module.exports = (req, res) => {
-    authenticate(req.query.token, [req.params.user]).then(() => {
-        let _path = path.join(__dirname, "../../../git/" + req.params.user + "/" + req.params.name);
+    if (req.session.auth && req.session.uid == req.params.user) {
+        let _path = path.join(__dirname, "../../../../db/openEssays/" + req.params.user + "/" + encodeURIComponent(req.params.name));
         if (fs.existsSync(_path)) {
             fs.rmdir(_path, {recursive: true}, (err) => {
                 if (!err) {
@@ -18,7 +17,7 @@ module.exports = (req, res) => {
         } else {
             res.status(400).send("Essay doesn't exist.");
         }
-    }).catch((err) => {
-        res.status(400).send(err);
-    });
+    } else {
+        res.status(400).send("Not authorized.");
+    }
 };

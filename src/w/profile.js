@@ -2,27 +2,26 @@ modules = require('../modules');
 
 module.exports = (req, res) => {
     res.send(modules.htmlPage(
-        modules.firebase +
-        modules.firebaseAuth +
         modules.httpGetAsync +
+        modules.session +
         modules.styles +
         `<script>
-            function requestRepos(idToken) {
-                let req = window.location.origin + "/api/user/${req.params.user}/repos" + (idToken ? "?token=" + idToken : "");
+            function requestEssays() {
+                let req = window.location.origin + "/api/user/${req.params.user}/essays";
                 httpGetAsync(req, (res, err) => {
                     if (!err) {
                         res = JSON.parse(res);
                         console.log(res);
-                        var reposString = "";
+                        var essaysString = "";
                         if (res.length > 0) {
                             for (i in res) {
-                                reposString += "<li><a href=\\"/w/repo/${req.params.user}/\" + res[i] + "\\">" + res[i] + "</li>";
+                                essaysString += "<li><a href=\\"/w/essays/essay/${req.params.user}/\" + res[i] + "\\">" + decodeURIComponent(res[i]) + "</li>";
                             }
                         } else {
-                            reposString = "None of this user's repos are visible to you.";
+                            essaysString = "None of this user's repos are visible to you.";
                         }
-                        document.getElementById("repos-ul").innerHTML = reposString;
-                        document.getElementById("repos").style.display = "block";
+                        document.getElementById("essays-ul").innerHTML = essaysString;
+                        document.getElementById("essays").style.display = "block";
                     } else {
                         console.error(res);
                     }
@@ -41,22 +40,16 @@ module.exports = (req, res) => {
                 }
             });
 
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    currentUser.getIdToken(true).then((idToken) => {
-                        requestRepos(idToken);
-                    });
-                } else {
-                    requestRepos();
-                }
+            session.onAuthChanged((state, userMeta) => {
+                requestEssays();
             });
         </script>`,
         modules.topNav +
         `
             <h1 id="display-name" style="display: none">displayName</h1>
-            <div id="repos">
-                <h2>Repos:</h2>
-                <ul id="repos-ul">
+            <div id="essays">
+                <h2>Essays:</h2>
+                <ul id="essays-ul">
                 </ul>
             </div>
         `

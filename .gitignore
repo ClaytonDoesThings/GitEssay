@@ -1,4 +1,5 @@
 /node_modules/
-/git/
+/db/
 /run.sh
 /run.bat
+/sessions

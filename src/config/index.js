@@ -1,4 +1,4 @@
 module.exports = {
-    firebaseAdmin: require('./firebaseAdmin.js'),
+    githubAuth: require('./githubAuth.js'),
     simpleGit: require('./simpleGit.js')
 };

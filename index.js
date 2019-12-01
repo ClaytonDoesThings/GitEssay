@@ -1,5 +1,16 @@
 const express = require('express');
+const session = require('express-session');
+var sessionFileStore = require('session-file-store')(session);
 const app = express();
+app.use(session({
+    secret: 'I got a wacc attacc',
+    resave: true,
+    saveUninitialized: false,
+    store: new sessionFileStore({
+        ttl: 604800
+    }),
+    cookie: {maxAge: 604800000}
+}));
 const port = process.env.PORT || 8080;
 
 const modules = require('./src/modules');
@@ -16,21 +27,25 @@ app.get('/w/home', w.home);
 
 app.get('/w/profile/:user', w.profile);
 
-app.get('/w/new', w.new);
+app.get('/w/essays', w.essays.essays);
 
-app.get('/w/repo/:user/:name', w.repoUserName.view);
-app.get('/w/repo/:user/:name/view', w.repoUserName.view);
-app.get('/w/repo/:user/:name/edit', w.repoUserName.edit);
+app.get('/w/essays/essay/:user/:name', w.essays.essay.view);
+app.get('/w/essays/essay/:user/:name/view', w.essays.essay.view);
+app.get('/w/essays/essay/:user/:name/edit', w.essays.essay.edit);
 
-app.get('/api/user/:user/meta', api.userMeta);
-app.get('/api/user/:user/repos', api.userRepos);
+app.get('/api/session', api.session);
+app.get('/api/auth/githubcallback', api.auth.githubCallback);
+app.get('/api/auth/signOut', api.auth.signOut);
 
-app.get('/api/new', api.new);
+app.get('/api/user/:user/meta', api.user.meta);
+app.get('/api/user/:user/essays', api.user.essays);
 
-app.get('/api/repo/:user/:name/meta', api.repoUserName.meta);
-app.get('/api/repo/:user/:name/data', api.repoUserName.data);
-app.get('/api/repo/:user/:name/data.json', api.repoUserName.dataJSON);
-app.get('/api/repo/:user/:name/delete', api.repoUserName.delete);
+app.get('/api/essays/new', api.essays.new);
+
+app.get('/api/essays/essay/:user/:name/meta', api.essays.essay.meta);
+app.get('/api/essays/essay/:user/:name/data', api.essays.essay.data);
+app.get('/api/essays/essay/:user/:name/data.json', api.essays.essay.dataJSON);
+app.get('/api/essays/essay/:user/:name/delete', api.essays.essay.delete);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
