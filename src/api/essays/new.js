@@ -1,12 +1,12 @@
 const fs = require('fs');
+const config = require('../../config');
 
 module.exports = (req, res) => {
     var name = encodeURIComponent(req.query.name);
 
     if (name) {
         if (req.session.auth) {
-            let user = req.session.userMeta;
-            let path = ("./db/openEssays/" + user.uid + "/" + name);
+            let path = ("./db/openEssays/" + req.session.uid + "/" + name);
             if (!fs.existsSync(path)) {
                 fs.mkdir(path, {recursive: true}, (err) => {
                     if (!err) {
