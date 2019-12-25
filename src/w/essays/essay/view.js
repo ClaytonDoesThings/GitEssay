@@ -90,7 +90,7 @@ module.exports = (req, res) => {
                 <span class="modal-close-button" onclick="closeDeleteModal()">&times;</span>
                 <span>Are you sure you want to delete this essay?</span><br/>
                 <span>Please enter the your UID followed by slash and the essay name.</span><br/>
-                <input type="text" id="delete-input" style="width: 90%" placeholder="ex: 04eQTVGatATNtKTdE53RipyPI7R2/wacc-essay"/>
+                <input type="text" id="delete-input" style="width: 90%" placeholder="ex: GitHub-MDQ6VXNlcjE2OTgxMjgz/wacc-essay"/>
                 <input type="button" style="width: 9%" value="Delete" onclick="deleteEssay()" id="delete-button" disabled>
             </div>
         </div>`,

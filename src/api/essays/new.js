@@ -18,18 +18,28 @@ module.exports = (req, res) => {
                                         meta: {
                                             format: 1
                                         },
-                                        settings: {},
+                                        settings: {
+                                            pageWidth: 210,
+                                            pageHeight: 297
+                                        },
                                         modules: {
                                             title: {
-                                                title: "tile",
+                                                title: "title",
                                                 content: [
                                                     {
-                                                        type: "text",
+                                                        type: "block",
                                                         settings: {
-                                                            justify: "center",
-                                                            breakLine: true
+                                                            justify: "center"
                                                         },
-                                                        content: "New Essay Title"
+                                                        content: [
+                                                            {
+                                                                type: "text",
+                                                                settings: {
+                                                                    fontSize: 16
+                                                                },
+                                                                content: "New Essay Title"
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -40,9 +50,15 @@ module.exports = (req, res) => {
                                                 module: "title"
                                             },
                                             {
-                                                type: "text",
+                                                type: "block",
                                                 settings: {},
-                                                content: "&emsp;Hello!"
+                                                content: [
+                                                    {
+                                                        type: "text",
+                                                        settings: {},
+                                                        content: "&emsp;This is a new essay."
+                                                    }
+                                                ]
                                             }
                                         ]
                                     }, null, 1),
