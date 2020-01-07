@@ -1,7 +1,9 @@
 const modules = require('../modules');
 
 module.exports = (req, res, next) => {
-    res.send(modules.htmlPage(
+    res.status(404).send(modules.htmlPage(
+        modules.httpGetAsync +
+        modules.session +
         modules.styles,
         modules.topNav +
         `

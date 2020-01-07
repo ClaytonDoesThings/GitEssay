@@ -18,10 +18,32 @@ module.exports = (req, res) => {
                                 essaysString += "<li><a href=\\"/w/essays/essay/${req.params.user}/\" + res[i] + "\\">" + decodeURIComponent(res[i]) + "</li>";
                             }
                         } else {
-                            essaysString = "None of this user's repos are visible to you.";
+                            essaysString = "None of this user's essays are visible to you.";
                         }
                         document.getElementById("essays-ul").innerHTML = essaysString;
                         document.getElementById("essays").style.display = "block";
+                    } else {
+                        console.error(res);
+                    }
+                });
+            }
+            
+            function requestCourses() {
+                let req = window.location.origin + "/api/user/${req.params.user}/courses";
+                httpGetAsync(req, (res, err) => {
+                    if (!err) {
+                        res = JSON.parse(res);
+                        console.log(res);
+                        var coursesString = "";
+                        if (res.length > 0) {
+                            for (i in res) {
+                                coursesString += "<li><a href=\\"/w/courses/course/${req.params.user}/\" + res[i] + "\\">" + decodeURIComponent(res[i]) + "</li>";
+                            }
+                        } else {
+                            coursesString = "None of this user's courses are visible to you.";
+                        }
+                        document.getElementById("courses-ul").innerHTML = coursesString;
+                        document.getElementById("courses").style.display = "block";
                     } else {
                         console.error(res);
                     }
@@ -42,6 +64,7 @@ module.exports = (req, res) => {
 
             session.onAuthChanged((state, userMeta) => {
                 requestEssays();
+                requestCourses();
             });
         </script>`,
         modules.topNav +
@@ -50,6 +73,11 @@ module.exports = (req, res) => {
             <div id="essays">
                 <h2>Essays:</h2>
                 <ul id="essays-ul">
+                </ul>
+            </div>
+            <div id="courses">
+                <h2>Courses:</h2>
+                <ul id="courses-ul">
                 </ul>
             </div>
         `

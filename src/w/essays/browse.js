@@ -1,5 +1,4 @@
 const modules = require('../../modules');
-const githubAuthURL = require('../../config/githubAuth').githubAuthURL;
 
 module.exports = (req, res) => {
     res.send(modules.htmlPage(

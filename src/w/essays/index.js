@@ -1,4 +1,4 @@
 module.exports = {
-    essays: require('./essays.js'),
+    browse: require('./browse.js'),
     essay: require('./essay')
 };
