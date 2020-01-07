@@ -1,80 +1,71 @@
 const fs = require('fs');
-const config = require('../../config');
 
 module.exports = (req, res) => {
-    var name = encodeURIComponent(req.query.name);
-
-    if (name) {
+    if (req.query.name !== undefined) {
+        var name = encodeURIComponent(req.query.name);
         if (req.session.auth) {
             let path = ("./db/openEssays/" + req.session.uid + "/" + name);
             if (!fs.existsSync(path)) {
                 fs.mkdir(path, {recursive: true}, (err) => {
                     if (!err) {
-                        config.simpleGit.cwd(path);
-                        config.simpleGit.init(false, (err) => {
-                            if (!err) {
-                                fs.writeFile(path + '/data.json',
-                                    JSON.stringify({
-                                        meta: {
-                                            format: 1
-                                        },
-                                        settings: {},
-                                        modules: {
-                                            title: {
-                                                title: "tile",
+                        fs.writeFile(path + '/data.json',
+                            JSON.stringify({
+                                meta: {
+                                    format: 1
+                                },
+                                settings: {
+                                    pageWidth: 210,
+                                    pageHeight: 297
+                                },
+                                modules: {
+                                    title: {
+                                        title: "title",
+                                        content: [
+                                            {
+                                                type: "block",
+                                                settings: {
+                                                    justify: "center"
+                                                },
                                                 content: [
                                                     {
                                                         type: "text",
                                                         settings: {
-                                                            justify: "center",
-                                                            breakLine: true
+                                                            fontSize: 16
                                                         },
                                                         content: "New Essay Title"
                                                     }
                                                 ]
                                             }
-                                        },
+                                        ]
+                                    }
+                                },
+                                content: [
+                                    {
+                                        type: "module-ref",
+                                        module: "title"
+                                    },
+                                    {
+                                        type: "block",
+                                        settings: {},
                                         content: [
-                                            {
-                                                type: "module-ref",
-                                                module: "title"
-                                            },
                                             {
                                                 type: "text",
                                                 settings: {},
-                                                content: "&emsp;Hello!"
+                                                content: "&emsp;This is a new essay."
                                             }
                                         ]
-                                    }, null, 1),
-                                (err) => {
-                                    if (!err) {
-                                        config.simpleGit.cwd(path);
-                                        config.simpleGit.add("data.json", (err) => {
-                                            if (!err) {
-                                                config.simpleGit.cwd(path);
-                                                config.simpleGit.commit("init", (err) => {
-                                                    if (!err) {
-                                                        res.send("Repository had been created.");
-                                                    } else {
-                                                        console.error(err);
-                                                        res.status(500).send("Error commiting staged files.");
-                                                    }
-                                                });
-                                            } else {
-                                                console.error(err);
-                                                res.status(500).send("Error staging files for commit.");
-                                            }
-                                        });
-                                    } else {
-                                        console.error(err);
-                                        res.status(500).send("Error writing file.");
                                     }
-                                });
-                            } else {
-                                console.error(err);
-                                res.status(500).send("Failed to intialize git repository.");
+                                ]
+                            }, null, 1),
+                            (err) => {
+                                if (!err) {
+                                    res.send("Essay has been created.");
+                                } else {
+                                    console.error(err);
+                                    res.status(500).send("Error writing file.");
+                                }
                             }
-                        });
+                        );
                     } else {
                         console.error(err);
                         res.status(500).send("Failed to make essay folder.");

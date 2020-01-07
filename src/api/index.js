@@ -1,6 +1,7 @@
 module.exports = {
     session: require('./session.js'),
     auth: require('./auth'),
+    user: require('./user'),
     essays: require('./essays'),
-    user: require('./user')
+    courses: require('./courses')
 };

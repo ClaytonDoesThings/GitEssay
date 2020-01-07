@@ -1,7 +1,8 @@
 module.exports = `
     <ul id="top-nav">
         <li><a href="/w/home">Home</a></li>
-        <li><a href="/w/essays">Essays</a></li>
+        <li><a href="/w/essays/browse">Essays</a></li>
+        <li><a href="/w/courses/browse">Courses</a></li>
         <li id="user-elem" style="display: none">
             <a id="signed-out" href="javascript:session.signIn()" style="display: none;">Sign In</a>
             <div id="signed-in" style="display: none;">

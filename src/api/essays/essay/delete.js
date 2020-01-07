@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const config = require('../../../config');
 
 module.exports = (req, res) => {
     if (req.session.auth && req.session.uid == req.params.user) {

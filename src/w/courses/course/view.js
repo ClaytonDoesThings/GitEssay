@@ -17,7 +17,7 @@ module.exports = (req, res) => {
                         document.getElementById("delete-modal-button").style.display = "inline";
                     }
 
-                    let req = window.location.origin + "/api/essays/essay/${req.params.user}/${encodeURIComponent(req.params.name)}/meta";
+                    let req = window.location.origin + "/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/meta";
                     httpGetAsync(req, (res, err) => {
                         if (!err) {
                             loadState = "authorized";
@@ -38,7 +38,7 @@ module.exports = (req, res) => {
 
             function download() {
                 if (loadState === "authorized") {
-                    window.location.href = (window.location.origin + "/api/essays/essay/${req.params.user}/${encodeURIComponent(req.params.name)}/data.json");
+                    window.location.href = (window.location.origin + "/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/data.json");
                 }
             }
 
@@ -62,8 +62,8 @@ module.exports = (req, res) => {
                 document.getElementById("delete-button").disabled = !(input.length === 2 && input[0] === "${req.params.user}" && input[1] === "${encodeURIComponent(req.params.name)}");
             }
 
-            function deleteEssay() {
-                let req = (window.location.origin + "/api/essays/essay/${req.params.user}/${encodeURIComponent(req.params.name)}/delete");
+            function deleteCourse() {
+                let req = (window.location.origin + "/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/delete");
                 httpGetAsync(req, (res, err) => {
                     if (!err) {
                         console.log("Repo successfully deleted");
@@ -81,17 +81,17 @@ module.exports = (req, res) => {
         modules.topNav +
         `<div id="loaded" style="display: none;">
             <h1 id="title">No Title</h1>
-            <a href="/w/essays/essay/${req.params.user}/${encodeURIComponent(req.params.name)}/edit">Edit</a>
+            <a href="/w/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/edit">Edit</a>
             <a href="javascript:download()">Download</a>
             <a href="javascript:openDeleteModal()" id="delete-modal-button">Delete</a>
         </div>
         <div id="delete-modal" class="modal">
             <div class="modal-content">
                 <span class="modal-close-button" onclick="closeDeleteModal()">&times;</span>
-                <span>Are you sure you want to delete this essay?</span><br/>
-                <span>Please enter the your UID followed by slash and the essay name.</span><br/>
-                <input type="text" id="delete-input" style="width: 90%" placeholder="ex: GitHub-MDQ6VXNlcjE2OTgxMjgz/wacc-essay"/>
-                <input type="button" style="width: 9%" value="Delete" onclick="deleteEssay()" id="delete-button" disabled>
+                <span>Are you sure you want to delete this course?</span><br/>
+                <span>Please enter the your UID followed by slash and the course name.</span><br/>
+                <input type="text" id="delete-input" style="width: 90%" placeholder="ex: GitHub-MDQ6VXNlcjE2OTgxMjgz/wacc-course"/>
+                <input type="button" style="width: 9%" value="Delete" onclick="deleteCourse()" id="delete-button" disabled>
             </div>
         </div>`,
         ``,
