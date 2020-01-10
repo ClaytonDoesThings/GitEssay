@@ -1,4 +1,4 @@
 module.exports = {
-    termSet: require("./set"),
+    termSet: require("./termSet"),
     new: require("./new.js")
 };
