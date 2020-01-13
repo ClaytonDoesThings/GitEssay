@@ -24,7 +24,7 @@ module.exports = (req, res) => {
                 var courseName = document.getElementById("courseName").value;
                 if (courseName.length > 0 && session.data.auth) {
                     let encodedName = encodeURIComponent(courseName);
-                    let req = window.location.origin + "/api/courses/new?name=" + encodedName;
+                    let req = window.location.origin + "/api/courses/new?course=" + encodedName;
                     httpGetAsync(req, (res, err) => {
                         if (!err) {
                             document.getElementById("errorBox").innerText = "";

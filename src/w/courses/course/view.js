@@ -36,6 +36,12 @@ module.exports = (req, res) => {
                 }
             });
 
+            function newTermSet() {
+                if (loadState === "authorized") {
+                    window.location.href = (window.location.origin + "/w/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/termSets/new");
+                }
+            }
+
             function download() {
                 if (loadState === "authorized") {
                     window.location.href = (window.location.origin + "/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/data.json");
@@ -81,9 +87,15 @@ module.exports = (req, res) => {
         modules.topNav +
         `<div id="loaded" style="display: none;">
             <h1 id="title">No Title</h1>
-            <a href="/w/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/edit">Edit</a>
+            <div>
+                <h2>Term Sets</h2>
+                <ul id="termSets">
+                </ul>
+                <a href="javascript:newTermSet()">New Term Set</a>
+            <div>
             <a href="javascript:download()">Download</a>
             <a href="javascript:openDeleteModal()" id="delete-modal-button">Delete</a>
+        </div>
         </div>
         <div id="delete-modal" class="modal">
             <div class="modal-content">

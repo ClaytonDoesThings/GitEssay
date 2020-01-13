@@ -82,6 +82,7 @@ app.get(
     ],
     w.courses.browse
 );
+app.get('/w/courses/course/:user/:name/termSets/edit', w.courses.course.termSets.edit);
 
 app.get(
     [

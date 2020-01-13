@@ -34,6 +34,6 @@ module.exports = (req, res) => {
             res.status(400).send("Not signed in.");
         }
     } else {
-        res.status(400).send("Missing token or name");
+        res.status(400).send("Missing name");
     }
 };
