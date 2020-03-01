@@ -31,22 +31,11 @@ module.exports = (req, res) => {
                         }
                     });
                 } else {
+                    document.getElementById("loaded").style.display = "none";
                     loadState = "unauthorized";
                     errorMessage = "No authentication";
                 }
             });
-
-            function newTermSet() {
-                if (loadState === "authorized") {
-                    window.location.href = (window.location.origin + "/w/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/termSets/new");
-                }
-            }
-
-            function download() {
-                if (loadState === "authorized") {
-                    window.location.href = (window.location.origin + "/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/data.json");
-                }
-            }
 
             function openDeleteModal() {
                 document.getElementById("delete-modal").style.display = "block";
@@ -88,12 +77,9 @@ module.exports = (req, res) => {
         `<div id="loaded" style="display: none;">
             <h1 id="title">No Title</h1>
             <div>
-                <h2>Term Sets</h2>
-                <ul id="termSets">
-                </ul>
-                <a href="javascript:newTermSet()">New Term Set</a>
+                <a href="/w/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/terms">Terms</a>
             <div>
-            <a href="javascript:download()">Download</a>
+            <a href="/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/data.json">Download</a>
             <a href="javascript:openDeleteModal()" id="delete-modal-button">Delete</a>
         </div>
         </div>

@@ -1,4 +1,4 @@
 module.exports = {
-    termSets: require('./termSets'),
-    view: require('./view.js')
+    view: require('./view.js'),
+    terms: require('./terms')
 };

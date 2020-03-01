@@ -1,0 +1,9 @@
+Term duplication must be kept to a minimum
+Terms must not be left unmaintained
+Terms have unique paths
+Courses are flat but have extensive features for submodules (other course's terms)
+	Can be default inclusive		
+		Filter by type
+		Filter specific terms
+	Can be default exclusive
+	Option to fork

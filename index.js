@@ -82,7 +82,7 @@ app.get(
     ],
     w.courses.browse
 );
-app.get('/w/courses/course/:user/:name/termSets/edit', w.courses.course.termSets.edit);
+app.get('/w/courses/course/:user/:name/terms', w.courses.course.terms.browse);
 
 app.get(
     [
@@ -97,7 +97,7 @@ app.get('/api/courses/new', api.courses.new);
 app.get('/api/courses/course/:user/:course/meta', api.courses.course.meta);
 app.get('/api/courses/course/:user/:course/delete', api.courses.course.delete);
 
-app.post('/api/courses/course/:user/:course/termSets/new', api.courses.course.termSets.new);
+app.get('/api/courses/course/:user/:course/terms', api.courses.course.terms.terms);
 
 app.use(w["404"]);
 
