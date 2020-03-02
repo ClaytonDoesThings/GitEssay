@@ -98,6 +98,7 @@ app.get('/api/courses/course/:user/:course/meta', api.courses.course.meta);
 app.get('/api/courses/course/:user/:course/delete', api.courses.course.delete);
 
 app.get('/api/courses/course/:user/:course/terms', api.courses.course.terms.terms);
+app.post('/api/courses/course/:user/:course/terms', api.courses.course.terms.new);
 
 app.use(w["404"]);
 

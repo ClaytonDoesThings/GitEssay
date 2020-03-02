@@ -37,27 +37,10 @@ module.exports = (req, res) => {
                     errorMessage = "No authentication";
                 }
             });
-
-            function updateTerms(success = ()=>{}) {
-                let req = window.location.origin + "/api/courses/course/${req.params.user}/${encodeURIComponent(req.params.name)}/terms";
-                httpGetAsync(req, (res, err) => {
-                    if (!err) {
-                        let terms = JSON.parse(res);
-                        for (let i = 0; i < terms.length; i++) {
-                            console.log(terms[i]);
-                        }
-                        success();
-                    } else {
-                        console.error(res);
-                    }
-                });
-            }
         </script>`,
         modules.topNav +
         `<div id="loaded" style="display: none">
             <h1 id="title"></h1>
-            <ul id="terms">
-            </ul>
         </div>`
     ));
-}
+};

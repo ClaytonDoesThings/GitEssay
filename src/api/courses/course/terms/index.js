@@ -1,3 +1,4 @@
 module.exports = {
-    terms: require('./terms.js')
+    terms: require('./terms.js'),
+    new: require('./new.js')
 };

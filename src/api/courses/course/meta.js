@@ -18,6 +18,8 @@ module.exports = (req, res) => {
                         res.status(500).send("Failed to read data file.");
                     }
                 });
+            } else {
+                res.status(500).send("Course is missing data file.");
             }
         } else {
             res.status(400).send("Course does not exist.");
